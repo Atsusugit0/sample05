@@ -29,19 +29,29 @@
             return value;
         }
 
-        //Dateオブジェクトをインスタンス化
-        var now = new Date();
+        /*function = addZero(value) {
+            if (value < 10) {
+                value = '0' + value;
+            }
 
-        var seconds = now.getSeconds(); //秒を取得
-        var seconds = addZero(seconds);
+            return value;
+        }*/
 
-        var minutes = now.getMinutes(); //分を取得
-        var minutes = addZero(minutes);
+        document.getElementById('start_stop').addEventListener('click', function() {
+            //Dateオブジェクトをインスタンス化
+            var now = new Date();
 
-        var hours = now.getHours(); //時を取得
-        var hours = addZero(hours);
+            var seconds = now.getSeconds(); //秒を取得
+            var seconds = addZero(seconds);
 
-        document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+            var minutes = now.getMinutes(); //分を取得
+            var minutes = addZero(minutes);
+
+            var hours = now.getHours(); //時を取得
+            var hours = addZero(hours);
+
+            document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+        });
     </script>
 </body>
 
