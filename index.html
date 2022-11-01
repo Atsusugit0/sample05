@@ -19,6 +19,38 @@
 
     </div>
 
+    <script>
+        //10未満の時にゼロを追加する
+        var addZero = function(value) {
+            if (value < 10) {
+                value = '0' + value;
+            }
+
+            return value;
+        }
+
+        //Dateオブジェクトをインスタンス化
+        var now = new Date();
+
+        var seconds = now.getSeconds(); //秒を取得
+        var seconds = addZero(seconds);
+
+        var minutes = now.getMinutes(); //分を取得
+        var minutes = addZero(minutes);
+
+        var hours = now.getHours(); //時を取得
+        var hours = addZero(hours);
+
+        document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+    </script>
 </body>
 
 </html>
+
+<!-- Javascript比較演算子 表記方法
+    A > B   AがBより大きい
+    A >= B  　 AがB以上
+    A === B   AとBが等しい　
+    A <= B   AがB以下
+    A < B   AがBより小さい（未満）
+    A !== B   AとBが等しくない -->
