@@ -11,6 +11,12 @@
 
 <body>
     <div class="container">
+        <p>現在時刻</p>
+        <p id="time">00:00:00</p>
+    </div>
+
+    <div class="container">
+        <p>ストップウォッチ</p>
         <p id="timer">00:00:00</p>
 
         <div>
@@ -37,7 +43,8 @@
             return value;
         }*/
 
-        document.getElementById('start_stop').addEventListener('click', function() {
+        //現在時刻
+        var clock = function() {
             //Dateオブジェクトをインスタンス化
             var now = new Date();
 
@@ -50,8 +57,55 @@
             var hours = now.getHours(); //時を取得
             var hours = addZero(hours);
 
-            document.getElementById('timer').innerHTML = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('time').innerHTML = hours + ':' + minutes + ':' + seconds;
+            //document.getElementById('time').innerHTML = addZero(hours) + ...
+        }
+
+        //window.addEventListener(...);  windowオブジェクトは省略できる 
+        addEventListener('load', clock);
+        setInterval(clock, 10);
+
+
+        //ストップウォッチ
+        var start;
+        var timer_id;
+
+        document.getElementById('start_stop').addEventListener('click', function() {
+            if (this.innerHTML === 'START') {
+                start = new Date();
+
+                timer_id = setInterval(goTimer, 10);
+
+                //STOPボタンにする
+                this.innerHTML = 'STOP';
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-danger');
+            } else {
+                clearInterval(timer_id)
+
+                //STARTボタンに戻す
+                this.innerHTML = 'START';
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-primary');
+            }
         });
+
+        var goTimer = function() {
+            var now = new Date();
+
+            //現在時刻を求める
+            var milli = now.getTime() - start.getTime();
+
+            //Mathオブジェクトのfloorメソッドを使って小数点以下を表示させない
+            var seconds = Math.floor(milli / 1000); //秒数を求めるため1000で割る
+            var minutes = Math.floor(seconds / 60); //分数を求めるため60で割る
+            var hours = Math.floor(minutes / 60); //時数を求めるため60で割る
+
+            seconds = seconds - minutes * 60;
+            minutes = minutes - hours * 60;
+
+            document.getElementById('timer').innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+        }
     </script>
 </body>
 
